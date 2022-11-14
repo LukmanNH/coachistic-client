@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Context } from "../context";
 
 const NavBar = () => {
+  // state
+  const { state } = useContext(Context);
+  const { user } = state;
   return (
     <div className="">
       <nav className="flex px-[5.375rem] pt-7 pb-[3.563rem] items-center justify-around">
@@ -61,16 +65,22 @@ const NavBar = () => {
           />
         </div>
         <div className="flex space-x-5">
-          <Link href={"/login"}>
-            <a className="py-2 px-6 border border-[#068F23] text-white rounded-md">
-              Sign in
-            </a>
-          </Link>
-          <Link href={"/register"}>
-            <a className="py-2 px-5 bg-[#068F23] text-white rounded-md">
-              Sign Up
-            </a>
-          </Link>
+          {user ? (
+            <div className="text-white text-2xl">{user.nama}</div>
+          ) : (
+            <>
+              <Link href={"/login"}>
+                <a className="py-2 px-6 border border-[#068F23] text-white rounded-md">
+                  Sign in
+                </a>
+              </Link>
+              <Link href={"/register"}>
+                <a className="py-2 px-5 bg-[#068F23] text-white rounded-md">
+                  Sign Up
+                </a>
+              </Link>
+            </>
+          )}
         </div>
       </nav>
     </div>
