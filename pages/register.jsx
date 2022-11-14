@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../context";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,7 +15,17 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
+  // router
   const router = useRouter();
+
+  // state
+  const { dispatch, state } = useContext(Context);
+  const { user } = state;
+
+  // check user login
+  useEffect(() => {
+    if (user !== null) router.push("/");
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

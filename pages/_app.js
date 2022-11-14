@@ -2,10 +2,11 @@ import Head from "next/head";
 import "../styles/globals.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Provider } from "../context";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <>
+    <Provider>
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
@@ -27,7 +28,7 @@ function MyApp({ Component, pageProps }) {
         theme="dark"
       />
       <Component {...pageProps} />
-    </>
+    </Provider>
   );
 }
 
