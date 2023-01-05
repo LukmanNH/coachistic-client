@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Context } from "../context";
 import CircularProgress from "@mui/material/CircularProgress";
 import { toast } from "react-toastify";
+import cookie from "js-cookie";
 
 const Login = () => {
   const [email, setEmail] = useState("luckmanhakim004@gmail.com");
@@ -48,6 +49,7 @@ const Login = () => {
       setLoading(false);
     }
   };
+
   return (
     <>
       <div className="flex">
