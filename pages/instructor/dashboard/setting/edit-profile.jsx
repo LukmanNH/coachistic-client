@@ -14,10 +14,10 @@ const EditProfile = () => {
   const { user } = state;
 
   const [nama, setNama] = useState(user && user?.nama);
-  const [noTelp, setNoTelp] = useState(user.no_telp);
-  const [instagram, setInstagram] = useState(user.instagram);
-  const [discord, setDiscord] = useState(user.discord);
-  const [summary, setSummary] = useState(user.summary);
+  const [noTelp, setNoTelp] = useState(user && user.no_telp);
+  const [instagram, setInstagram] = useState(user && user.instagram);
+  const [discord, setDiscord] = useState(user && user.discord);
+  const [summary, setSummary] = useState(user && user.summary);
   const [umur, setUmur] = useState(Number);
   const [jenisKelamin, setJenisKelamin] = useState(String);
   const [expertise, setExpertise] = useState(String);
