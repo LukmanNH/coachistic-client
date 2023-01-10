@@ -13,7 +13,7 @@ const EditProfile = () => {
   const { state, dispatch } = useContext(Context);
   const { user } = state;
 
-  const [nama, setNama] = useState(user.nama);
+  const [nama, setNama] = useState(user && user?.nama);
   const [noTelp, setNoTelp] = useState(user.no_telp);
   const [instagram, setInstagram] = useState(user.instagram);
   const [discord, setDiscord] = useState(user.discord);
