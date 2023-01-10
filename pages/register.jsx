@@ -6,6 +6,7 @@ import Link from "next/link";
 import axios from "axios";
 import { toast } from "react-toastify";
 import CircularProgress from "@mui/material/CircularProgress";
+import Head from "next/head";
 
 const Register = () => {
   const [nama, setNama] = useState("");
@@ -31,12 +32,15 @@ const Register = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const register = await axios.post("http://localhost:8000/api/register", {
-        nama,
-        no_telp: noTelp,
-        email,
-        password,
-      });
+      const register = await axios.post(
+        "https://different-deer-hem.cyclic.app/api/register",
+        {
+          nama,
+          no_telp: noTelp,
+          email,
+          password,
+        }
+      );
       toast("Berhasil Registrasi. Silakan login");
       setLoading(false);
       router.push("/login");
@@ -49,6 +53,10 @@ const Register = () => {
 
   return (
     <>
+      <Head>
+        <title>Coachistic | Register</title>
+        <link rel="icon" href="/logo.svg"></link>
+      </Head>
       <div className="flex">
         <div className="mr-[16.25rem]">
           <Image src={"/register-banner.png"} width={564} height={1001} />

@@ -15,6 +15,8 @@ const rootReducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
       return { ...state, user: action.payload };
+    case "MAKEINSTRUCTOR":
+      return { user: action.payload };
     case "LOGOUT":
       return { ...state, user: null };
     default:
@@ -47,7 +49,7 @@ const Provider = ({ children }) => {
       if (res.status === 401 && res.config && !res.config.__isRetryRequest) {
         return new Promise((resolve, reject) => {
           axios
-            .get("http://localhost:8000/api/logout")
+            .get("https://different-deer-hem.cyclic.app/api/logout")
             .then((data) => {
               console.log("/401 error > logout");
               dispatch({ type: "LOGOUT" });

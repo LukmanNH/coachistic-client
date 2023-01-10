@@ -17,7 +17,9 @@ const NavBar = () => {
   const logoutHandler = async () => {
     dispatch({ type: "LOGOUT" });
     localStorage.removeItem("user");
-    const { data } = await axios.get("http://localhost:8000/api/logout");
+    const { data } = await axios.get(
+      "https://different-deer-hem.cyclic.app/api/logout"
+    );
     router.push("/login");
   };
 
@@ -33,7 +35,9 @@ const NavBar = () => {
             </Link>
           </div>
           <ul className="text-white flex space-x-[1.875rem] font-medium">
-            <li className="cursor-pointer">Kelas</li>
+            <li className="cursor-pointer">
+              <Link href={"/class"}>Kelas</Link>
+            </li>
             <li className="cursor-pointer">
               <Link href={"/instructor"}>Jadi Instructor</Link>
             </li>
@@ -88,11 +92,11 @@ const NavBar = () => {
                 onClick={() => setDropDownVisbile(!dropDownVisbile)}
               >
                 <div className="text-white text-base font-medium">
-                  Halo, {user.nama.split(" ")[0]}
+                  Halo, {user?.nama.split(" ")[0]}
                 </div>
                 <img
                   className="inline-block h-8 w-8 rounded-full ring-2 ring-[#068F23]"
-                  src="../avatar.png"
+                  src="/avatar.png"
                 />
               </div>
               <div
@@ -107,7 +111,7 @@ const NavBar = () => {
                     ) : user.role.includes("Instructor") ? (
                       <Link href={"/instructor/dashboard"}>Dashboard</Link>
                     ) : (
-                      <Link href={"/instructor/"}>Dashboard</Link>
+                      <Link href={"/admin"}>Dashboard</Link>
                     )}
                   </li>
                   <li className="cursor-pointer hover:bg-[#13151B] p-[0.5rem]">

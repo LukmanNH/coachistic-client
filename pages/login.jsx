@@ -7,6 +7,7 @@ import { Context } from "../context";
 import CircularProgress from "@mui/material/CircularProgress";
 import { toast } from "react-toastify";
 import cookie from "js-cookie";
+import Head from "next/head";
 
 const Login = () => {
   const [email, setEmail] = useState("luckmanhakim004@gmail.com");
@@ -29,10 +30,13 @@ const Login = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const { data } = await axios.post("http://localhost:8000/api/login", {
-        email,
-        password,
-      });
+      const { data } = await axios.post(
+        "https://different-deer-hem.cyclic.app/api/login",
+        {
+          email,
+          password,
+        }
+      );
       dispatch({
         type: "LOGIN",
         payload: data,
@@ -52,6 +56,10 @@ const Login = () => {
 
   return (
     <>
+      <Head>
+        <title>Coachistic | Login</title>
+        <link rel="icon" href="/logo.svg"></link>
+      </Head>
       <div className="flex">
         <div className="mr-[16.25rem]">
           <Image src={"/login-banner.png"} width={564} height={1001} />

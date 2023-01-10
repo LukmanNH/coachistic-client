@@ -18,24 +18,43 @@ const BecomeInstructor = () => {
   // router
   const router = useRouter();
 
+  function getCurrentUser() {
+    const user = localStorage.getItem("user");
+    console.log(user);
+  }
+
   useEffect(() => {
-    if (user == null && !user?.role.includes("Instructor")) {
-      router.push("/login");
+    if (user == null || user?.role === "Instructor") {
+      router.push("/");
     }
   }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const { data } = await axios.post(
-      "http://localhost:8000/api/instructor/make-instructor",
+      "https://different-deer-hem.cyclic.app/api/instructor/make-instructor",
       {
         expertise,
         instagram,
         discord,
         summary,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
       }
     );
-    toast.success("success become instructor");
+    localStorage.removeItem("user");
+    localStorage.setItem("user", data.statusUpdated);
+    console.log(data.statusUpdated);
+    dispatch({
+      type: "LOGOUT",
+    });
+
+    toast.success("success become instructor, try login again");
+    router.push("/login");
   };
 
   return (

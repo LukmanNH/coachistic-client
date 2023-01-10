@@ -1,10 +1,15 @@
 import Image from "next/image";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import Head from "next/head";
 
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>Coachistic</title>
+        <link rel="icon" href="/logo.svg"></link>
+      </Head>
       <NavBar />
       {/* Hero */}
       <div className="border-[2px] border-[#068F23] pl-[4.75rem] pt-[4.75rem] pr-[1.375rem] mx-[5.375rem] rounded-[10px] flex justify-between">

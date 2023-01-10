@@ -1,9 +1,58 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Image from "next/image";
-import NavBar from "../../components/NavBar";
-import Footer from "../../components/Footer";
+import NavBar from "../../../components/NavBar";
+import Footer from "../../../components/Footer";
+import { useRouter } from "next/router";
+import { Context } from "../../../context";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const ConfirmPage = () => {
+  // state
+  const [course, setCourse] = useState({});
+  const [picture, setPicture] = useState(String);
+  // state user
+  const { state, dispatch } = useContext(Context);
+  const { user } = state;
+
+  // router
+  const router = useRouter();
+
+  async function getDetailedCourse() {
+    const slug = router.asPath.split("/")[2];
+    try {
+      const { data } = await axios.get(
+        `https://different-deer-hem.cyclic.app/api/course/course/${slug}`,
+        { headers: { Authorization: `Bearer ${user.token}` } }
+      );
+      console.log(data);
+      setCourse(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function submitKonfirmasiPembayaran(e) {
+    e.preventDefault();
+    const payload = new FormData();
+    payload.append("picture", picture);
+    try {
+      const { data } = await axios.post(
+        `https://different-deer-hem.cyclic.app/api/transaction/buy-course/${course._id}`,
+        payload,
+        { headers: { Authorization: `Bearer ${user.token}` } }
+      );
+      toast.success("Berhasil Mengupload Bukti Pembayaran");
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    if (user == null) router.push("/login");
+    getDetailedCourse();
+  }, []);
   return (
     <>
       <NavBar />
@@ -21,11 +70,9 @@ const ConfirmPage = () => {
       <div className="flex justify-center place-items-start gap-x-8 mb-[10.25rem]">
         <div className="bg-[#1D1E24] border-[1.5px] border-white/10 p-7 rounded-[15px] max-w-[23.5rem] max-h-[30.375rem] ">
           <img src="/jett.png" alt="jett" className="mb-5" />
-          <h1 className="text-white font-bold text-2xl mb-5">
-            Tips Meningkatkan Aim Valorant untuk Para Pe...
-          </h1>
+          <h1 className="text-white font-bold text-2xl mb-5">{course.name}</h1>
           <p className="text-white text-xl font-light mb-[2.375rem]">
-            Rp. 49,999
+            Rp. {course.price}
           </p>
           <div className="mt-[2.188rem] flex space-x-5">
             {/* STARS */}
@@ -90,17 +137,20 @@ const ConfirmPage = () => {
               </button>
             </span>
             <input
-              type="search"
-              name="q"
+              type="file"
+              name="picture"
               className="py-3 font-medium text-white bg-[#272833] focus:outline-none pl-12 w-full rounded-[50px] max-w-[25.875rem]"
               placeholder="Upload bukti pembayaran"
-              autoComplete="off"
+              onChange={(e) => setPicture(e.target.files[0])}
             />
           </div>
           <p className="text-xs text-white/60 mt-1 mb-[5rem]">
             Format file jpg, jpeg, png.
           </p>
-          <div className="mt-11 text-white text-xl font-bold py-2 bg-[#068F23] rounded-[50px] cursor-pointer text-center max-w-[25.875rem]">
+          <div
+            onClick={(e) => submitKonfirmasiPembayaran(e)}
+            className="mt-11 text-white text-xl font-bold py-2 bg-[#068F23] rounded-[50px] cursor-pointer text-center max-w-[25.875rem]"
+          >
             Konfirmasi Pembayaran
           </div>
         </div>

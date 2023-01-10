@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "../context";
+import "sweetalert2/src/sweetalert2.scss";
 
 function MyApp({ Component, pageProps }) {
   return (
