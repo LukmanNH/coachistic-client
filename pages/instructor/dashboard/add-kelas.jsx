@@ -57,7 +57,7 @@ const AddKelas = () => {
       <div className="flex h-screen">
         <SideBarInstructor />
         <div className="pl-16 pr-[5.375rem] pt-12 w-10/12">
-          <DashboardHeader namaUser={user.nama} />
+          <DashboardHeader namaUser={user && user?.nama} />
           <div className="bg-[#1D1E24] border-[1px] border-white/10 px-6 pt-8 pb-[2.875rem] rounded-[20px] max-w-[49rem] mt-[4.5rem]">
             <form onSubmit={handleSubmit}>
               <div className="">
