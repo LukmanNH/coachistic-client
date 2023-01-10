@@ -69,14 +69,14 @@ const EditProfile = () => {
   return (
     <>
       <Head>
-        <title>Edit Profile | {user?.nama}</title>
+        <title>Edit Profile | {user && user?.nama}</title>
         <link rel="icon" href="/logo.svg" />
       </Head>
       <div className="flex h-screen">
         <SideBarInstructor />
 
         <div className="pl-16 pr-[5.375rem] pt-12 w-10/12">
-          <DashboardHeader namaUser={user?.nama} />
+          <DashboardHeader namaUser={user && user?.nama} />
           {/* Main */}
           <main className="mt-[4.5rem]">
             <h1 className="font-bold text-white text-[2rem] mb-2">
